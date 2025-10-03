@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Modern Responsive Form</title>
+  <style>
+    body{
+        background-color: #7ad5e6;
+    }
+    :root{
+      --bg:#2c79dd;
+      --card:#b5d0d8;
+      --accent:#4f46e5;
+      --muted:#6b7280;
+      --success:#10b981;
+      --danger:#ef4444;
+      --radius:12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#eef2ff 60%);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 20px;
+      color:#0f172a;
+    }
+    .container{
+      width:100%;
+      max-width:920px;
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:0 10px 30px rgba(15,23,42,0.08);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1fr 420px;
+    }
+    @media (max-width:880px){
+      .container{grid-template-columns:1fr}
+      .side{display:none}
+    }
+
+    .form-wrap{padding:28px 36px}
+    h1{margin:0 0 6px;font-size:20px}
+    p.lead{margin:0 0 18px;color:var(--muted);font-size:14px}
+
+    form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    label{display:block;font-size:13px;margin-bottom:6px}
+    .field{display:flex;flex-direction:column}
+    input[type="text"],input[type="email"],input[type="password"],input[type="tel"],select,textarea,input[type="number"],input[type="date"]{
+      padding:11px 12px;border-radius:10px;border:1px solid #e6e9ef;font-size:14px;outline:none;
+      transition:box-shadow .15s ease,border-color .15s ease
+    }
+    input:focus,select:focus,textarea:focus{box-shadow:0 4px 14px rgba(79,70,229,0.08);border-color:var(--accent)}
+    textarea{resize:vertical;min-height:100px}
+
+    .full{grid-column:1 / -1}
+    .actions{display:flex;gap:12px;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:600;cursor:pointer
+    }
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(79,70,229,0.12)}
+
+    .side{
+      background:linear-gradient(180deg,rgba(79,70,229,0.06),rgba(79,70,229,0.03));padding:28px 26px;display:flex;flex-direction:column;gap:12px;align-items:flex-start
+    }
+    .side h2{margin:0;font-size:16px}
+    .muted{color:var(--muted);font-size:13px}
+
+    .row{display:flex;gap:10px}
+    .small{font-size:13px;color:var(--muted)}
+    .note{font-size:12px;color:var(--muted);margin-top:8px}
+
+    .inline{display:flex;gap:8px;align-items:center}
+    .checkbox{display:inline-flex;align-items:center;gap:8px}
+
+    .form-footer{margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+
+    .error{color:var(--danger);font-size:12px;margin-top:6px}
+    .success{color:var(--success);font-size:12px;margin-top:6px}
+
+    /* little helper for file input */
+    .file-input{padding:10px;border-radius:10px;border:1px dashed #e6e9ef;background:linear-gradient(180deg,#fff,#fbfcff);display:flex;align-items:center;justify-content:space-between}
+
+    /* responsive tweaks */
+    @media (max-width:520px){form{grid-template-columns:1fr}}
+
+    footer.attribution{padding:10px;text-align:center;font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <div class="form-wrap">
+      <h1>Sign Up / Contact</h1>
+      <p class="lead">Fill the form below and we'll get back to you within 1 business day.</p>
+
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <label for="firstName">First name *</label>
+          <input id="firstName" name="firstName" type="text" placeholder="John" required />
+          <div class="error" id="err-firstName" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last name *</label>
+          <input id="lastName" name="lastName" type="text" placeholder="Doe" required />
+          <div class="error" id="err-lastName"></div>
+        </div>
+
+        <div class="field full">
+          <label for="email">Email address *</label>
+          <input id="email" name="email" type="email" placeholder="you@company.com" required />
+          <div class="error" id="err-email"></div>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" />
+        </div>
+
+        <div class="field">
+          <label for="role">I'm interested in</label>
+          <select id="role" name="role">
+            <option value="website">Website Design</option>
+            <option value="seo">SEO & Marketing</option>
+            <option value="crm">CRM / Automation</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="budget">Estimated budget (₹)</label>
+          <input id="budget" name="budget" type="number" min="0" placeholder="5000" />
+        </div>
+
+        <div class="field full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us briefly about your project..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="start">Preferred start date</label>
+          <input id="start" name="start" type="date" />
+        </div>
+
+        <div class="field">
+          <label for="file">Upload brief (optional)</label>
+          <div class="file-input" aria-hidden="false">
+            <input id="file" name="file" type="file" accept=".pdf,.doc,.docx" />
+            <small class="small">PDF, DOC up to 5MB</small>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="password">Create password</label>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input id="password" name="password" type="password" placeholder="At least 8 characters" minlength="8" />
+            <button type="button" id="togglePwd" class="btn ghost" style="padding:8px 10px">Show</button>
+          </div>
+          <div class="note small">Password must be at least 8 characters.</div>
+        </div>
+
+        <div class="field">
+          <label>How did you hear about us?</label>
+          <div class="inline small">
+            <label class="checkbox"><input type="radio" name="source" value="google" checked/> Google</label>
+            <label class="checkbox"><input type="radio" name="source" value="friend"/> Friend</label>
+            <label class="checkbox"><input type="radio" name="source" value="social"/> Social</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>&nbsp;</label>
+          <label class="checkbox"><input id="subscribe" name="subscribe" type="checkbox"/> Subscribe to updates</label>
+        </div>
+
+        <div class="field full form-footer">
+          <div>
+            <button type="submit" class="btn">Send message</button>
+            <button type="reset" class="btn ghost">Reset</button>
+          </div>
+          <div class="small muted">By submitting you agree to our terms.</div>
+        </div>
+
+        <div class="full" id="formStatus" aria-live="polite"></div>
+      </form>
+
+      <footer class="attribution">Need changes? Ask me to customize labels, colors, or add form integrations (email/Google Sheets).</footer>
+    </div>
+
+    <aside class="side">
+      <h2>Quick tips</h2>
+      <p class="muted">Make sure to validate server-side as well. Client-side checks are for convenience only.</p>
+
+      <h2>Features included</h2>
+      <ul class="muted small">
+        <li>Responsive layout (mobile-first)</li>
+        <li>Accessible labels and live error text</li>
+        <li>Lightweight CSS — single file</li>
+      </ul>
+
+      <h2>Next steps</h2>
+      <p class="muted small">I can: connect this to a backend, wire to email or Google Sheets, or export to a React component.</p>
+    </aside>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('formStatus');
+      const toggle = document.getElementById('togglePwd');
+      const pwd = document.getElementById('password');
+
+      toggle.addEventListener('click', ()=>{
+        if(pwd.type === 'password'){pwd.type='text'; toggle.textContent='Hide'} else {pwd.type='password'; toggle.textContent='Show'}
+      });
+
+      function showError(id, msg){
+        const el = document.getElementById('err-'+id);
+        if(el) el.textContent = msg;
+      }
+      function clearErrors(){
+        ['firstName','lastName','email'].forEach(k=>showError(k,''));
+        status.textContent=''; status.className='';
+      }
+
+      form.addEventListener('submit',(e)=>{
+        e.preventDefault(); clearErrors();
+        const f = new FormData(form);
+        let valid = true;
+        if(!f.get('firstName') || f.get('firstName').trim().length < 2){ valid=false; showError('firstName','Please enter your first name'); }
+        if(!f.get('lastName') || f.get('lastName').trim().length < 1){ valid=false; showError('lastName','Please enter your last name'); }
+        const email = f.get('email');
+        if(!email || !/^\S+@\S+\.\S+$/.test(email)){ valid=false; showError('email','Please enter a valid email'); }
+
+        if(!valid){ status.textContent = 'Please fix the errors above.'; status.className='error'; return; }
+
+        // fake submit (replace with real fetch to send data to your server)
+        status.textContent = 'Sending...';
+        setTimeout(()=>{
+          status.textContent = 'Thanks — your message has been sent!'; status.className='success';
+          form.reset();
+        },800);
+      });
+
+    })();
+  </script>
+</body>
+</html>
